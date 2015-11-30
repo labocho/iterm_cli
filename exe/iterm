@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require "iterm_cli"
+ITermCLI::CLI.start(ARGV)
