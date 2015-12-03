@@ -1,6 +1,25 @@
 require "thor"
 
 module ITermCLI
+  class SessionsCommand < Thor
+    namespace "sessions"
+
+    desc "start [SESSION_NAME]", "Start all sessions if it's not started"
+    def start(*session_names)
+      SessionManager.load(".iterm-sessions").start(session_names)
+    end
+
+    desc "stop [SESSION_NAME]", "Stop all sessions if it's started"
+    def stop(*session_names)
+      SessionManager.load(".iterm-sessions").stop(session_names)
+    end
+
+    desc "ls", "List sessions"
+    def ls(*session_names)
+      SessionManager.load(".iterm-sessions").list
+    end
+  end
+
   class CLI < Thor
     desc "list-sessions", "List name of all sessions in current terminal"
     def list_sessions
@@ -18,5 +37,7 @@ module ITermCLI
     def send_keys(*keys)
       Terminal::SendKeys.call(keys, target: options.target)
     end
+
+    register SessionsCommand, "sessions", "sessions <command>", "Manage sessions by .iterm-sessions"
   end
 end
