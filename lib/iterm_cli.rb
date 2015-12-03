@@ -4,4 +4,4 @@ module ITermCLI
 end
 
 require "iterm_cli/cli"
-require "iterm_cli/subcommand"
+require "iterm_cli/terminal"

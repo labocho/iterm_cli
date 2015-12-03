@@ -2,13 +2,13 @@ require "open3"
 require "json"
 
 module ITermCLI
-  module Subcommand
-    class Base
-      def self.run(*args)
-        new.run(*args)
+  module Terminal
+    class Function
+      def self.call(*args)
+        new.call(*args)
       end
 
-      def run(*args)
+      def call(*args)
         raise NotImplementedError
       end
 

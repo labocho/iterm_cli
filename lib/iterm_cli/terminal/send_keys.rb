@@ -1,6 +1,6 @@
 module ITermCLI
-  module Subcommand
-    class SendKeys < Base
+  module Terminal
+    class SendKeys < Function
       SOURCE = <<-JS
         function run(argv) {
           var options = JSON.parse(argv[0]);
@@ -19,8 +19,8 @@ module ITermCLI
         }
       JS
 
-      def run(texts, options)
-        text = texts.map{|t|
+      def call(keys, target: nil)
+        text = keys.map{|t|
           case t
           when /\AC-(.)$\z/
             ($1.ord & 0b00011111).chr
@@ -31,7 +31,7 @@ module ITermCLI
           end
         }.join(" ")
 
-        osascript(SOURCE, target: options.target, text: text)
+        osascript(SOURCE, target: target, text: text)
       end
     end
   end

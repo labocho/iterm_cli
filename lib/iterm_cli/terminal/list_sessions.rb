@@ -1,6 +1,6 @@
 module ITermCLI
-  module Subcommand
-    class ListSessions < Base
+  module Terminal
+    class ListSessions < Function
       SOURCE = <<-JS
         function run(argv) {
           var iTerm = Application("iTerm");
@@ -17,8 +17,8 @@ module ITermCLI
         }
       JS
 
-      def run
-        puts osascript(SOURCE)
+      def call
+        osascript(SOURCE).split("\n")
       end
     end
   end
