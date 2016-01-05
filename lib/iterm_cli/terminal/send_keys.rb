@@ -19,7 +19,10 @@ module ITermCLI
         }
       JS
 
-      def call(keys, target: nil)
+      def call(keys, options = {})
+        options = {target: nil}.merge(options)
+        target = options[:target]
+
         text = keys.map{|t|
           case t
           when /\AC-(.)$\z/

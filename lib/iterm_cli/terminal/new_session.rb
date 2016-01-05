@@ -16,7 +16,11 @@ module ITermCLI
       JS
 
       # command should be ["command", "arg"] or ["command arg"] or nil
-      def call(command, name: nil, debug: false)
+      def call(command, options = {})
+        options = {name: nil, debug: false}.merge(options)
+        name = options[:name]
+        debug = options[:debug]
+
         commands = split_command_and_args(command)
         executable = commands.first
 
