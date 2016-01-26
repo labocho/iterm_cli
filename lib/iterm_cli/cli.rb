@@ -10,9 +10,9 @@ module ITermCLI
       SessionManager.load(".iterm-sessions").start(session_names)
     end
 
-    desc "stop [SESSION_NAME]", "Stop all sessions if it's started"
-    def stop(*session_names)
-      SessionManager.load(".iterm-sessions").stop(session_names)
+    desc "kill [SESSION_NAME]", "Kill all sessions if it's started"
+    def kill(*session_names)
+      SessionManager.load(".iterm-sessions").kill(session_names)
     end
 
     desc "ls", "List sessions"
@@ -41,6 +41,7 @@ module ITermCLI
       Terminal::SendKeys.call(keys, target: options.target)
     end
 
-    register SessionsCommand, "sessions", "sessions <command>", "Manage sessions by .iterm-sessions"
+    desc "sessions SUBCOMMAND ...ARGS", "Manage sessions by .iterm-sessions"
+    subcommand "sessions", SessionsCommand
   end
 end

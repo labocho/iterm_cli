@@ -39,13 +39,13 @@ module ITermCLI
       end
     end
 
-    def stop(names)
-      sessions_will_stop = select_sessions_by_names(names)
+    def kill(names)
+      sessions_will_kill = select_sessions_by_names(names)
       existed = existed_session_names
-      sessions_will_stop.select!{|s| existed.include?(s.name) }
+      sessions_will_kill.select!{|s| existed.include?(s.name) }
 
-      sessions_will_stop.each do |session|
-        $stdout.puts "Stop #{session.name}"
+      sessions_will_kill.each do |session|
+        $stdout.puts "Kill #{session.name}"
         Terminal::SendKeys.call(session.kill.split(" "), target: session.name)
       end
     end
