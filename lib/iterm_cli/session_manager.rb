@@ -52,12 +52,14 @@ module ITermCLI
 
     def list
       existed = existed_session_names
+      column_width = sessions.values.map{|s| s.name.length }.max
       sessions.values.each do |session|
-        if existed.include?(session.name)
-          puts "* #{session.name}"
+        prefix = if existed.include?(session.name)
+          "*"
         else
-          puts "  #{session.name}"
+          " "
         end
+        puts [prefix, session.name.ljust(column_width), session.command].join(" ")
       end
     end
 
