@@ -1,28 +1,84 @@
-# ITermCLI
+# iTerm CLI
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/iterm_cli`. To experiment with that code, run `bin/console` for an interactive prompt.
+Command line interface for iTerm 2. Inspired by tmux and tmuxinator.
 
-TODO: Delete this and the text above, and describe your gem
+## Requirements
+
+Ruby 2.1.0 or later.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'iterm_cli'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install iterm_cli
+    $ git clone https://github.com/labocho/iterm_cli
+    $ cd iterm_cli
+    $ rake install
 
 ## Usage
 
-TODO: Write usage instructions here
+    # If no arguments, show help.
+    $ iterm
+
+### new-session
+
+    # `iterm new-session` creates new session (tab)
+    $ iterm new-session
+
+    # with command, execute in created session
+    $ iterm new-session top
+    $ iterm new-session sleep 3
+    $ iterm new-session 'sleep 3'
+
+    # session name will be command name.
+    # --name (or -n) option names session explicitly.
+    $ iterm new-session --name=server rails server
+
+### send-keys
+
+    # `iterm send-keys` types keys to target session
+    $ iterm new-session -n foo zsh
+    $ iterm send-keys --target foo exit
+
+    # C-* indicates control key
+    $ iterm new-session top
+    $ iterm send-keys --target top C-c # send control-c
+
+### sessions
+
+`iterm sessions` manages multi sessions by file named `.iterm-sessions` in current directory.
+`.iterm-sessions` should be written in YAML (http://yaml.org/).
+
+    # keys are session names
+    console:
+      # `command` passes `iterm new-session` when started
+      command: rails console
+      # `kill` passes `iterm send-keys` when stopped
+      kill: exit
+    # shorthand style
+    # kill: C-c
+    server: rails server
+
+`iterm sessions` have subcommands below.
+
+    # `iterm sessions ls` lists sessions defined
+    # marked for session exists.
+    $ iterm sessions ls
+      console
+    * server
+
+
+    # `iterm sessions start` starts all sessions.
+    # If session exists, do nothing for the session.
+    $ iterm sessions start
+
+    # If pass session name, start the session (if not exists).
+    $ iterm sessions start server
+
+
+    # `iterm sessions stop` stops all sessions.
+    # If session does not exist, do nothing.
+    $ iterm sessions stop
+
+    # If pass session name, stop the session (if exists).
+    $ iterm sessions stop server
 
 ## Development
 
