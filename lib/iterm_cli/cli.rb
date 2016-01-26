@@ -1,4 +1,5 @@
 require "thor"
+require "thor/zsh_completion"
 
 module ITermCLI
   class SessionsCommand < Thor
@@ -21,6 +22,8 @@ module ITermCLI
   end
 
   class CLI < Thor
+    include ZshCompletion::Command
+
     desc "list-sessions", "List name of all sessions in current terminal"
     def list_sessions
       puts Terminal::ListSessions.call.join("\n")
