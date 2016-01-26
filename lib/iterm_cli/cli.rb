@@ -19,6 +19,12 @@ module ITermCLI
     def ls(*session_names)
       SessionManager.load(".iterm-sessions").list
     end
+
+    map(
+      "s" => "start",
+      "k" => "kill",
+      "l" => "ls",
+    )
   end
 
   class CLI < Thor
@@ -43,5 +49,12 @@ module ITermCLI
 
     desc "sessions SUBCOMMAND ...ARGS", "Manage sessions by .iterm-sessions"
     subcommand "sessions", SessionsCommand
+
+    map(
+      "l" => "list_sessions",
+      "n" => "new_session",
+      "k" => "send_keys",
+      "s" => "sessions",
+    )
   end
 end
