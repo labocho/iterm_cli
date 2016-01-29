@@ -1,10 +1,10 @@
 # iTerm CLI
 
-Command line interface for iTerm 2. Inspired by tmux and tmuxinator.
+Command line interface for [iTerm 2](https://www.iterm2.com/). Inspired by [tmux](https://tmux.github.io/) and [tmuxinator](https://github.com/tmuxinator/tmuxinator).
 
 ## Requirements
 
-Ruby 2.1.0 or later.
+Ruby 1.9.3 or later.
 
 ## Installation
 
@@ -73,12 +73,12 @@ Ruby 2.1.0 or later.
     $ iterm sessions start server
 
 
-    # `iterm sessions stop` stops all sessions.
+    # `iterm sessions kill` stops all sessions.
     # If session does not exist, do nothing.
-    $ iterm sessions stop
+    $ iterm sessions kill
 
-    # If pass session name, stop the session (if exists).
-    $ iterm sessions stop server
+    # If pass session name, kill the session (if exists).
+    $ iterm sessions kill server
 
 ## Development
 
