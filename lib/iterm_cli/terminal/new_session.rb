@@ -31,9 +31,6 @@ module ITermCLI
 
         name ||= executable.split("/").last
 
-        # Use `direnv exec` if exists direnv and .envrc
-        commands = prepend_direnv_exec(commands)
-
         script_lines = []
         script_lines.concat(set_env_lines)
         script_lines << "cd #{Dir.pwd.shellescape}"
@@ -58,14 +55,6 @@ module ITermCLI
           [ENV["SHELL"]]
         when 1
           commands[0].shellsplit
-        else
-          commands
-        end
-      end
-
-      def prepend_direnv_exec(commands)
-        if which("direnv") && File.exist?(".envrc")
-          ["direnv", "exec", "."] + commands
         else
           commands
         end
