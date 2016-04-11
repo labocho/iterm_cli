@@ -61,7 +61,7 @@ module ITermCLI
       end
 
       def set_env_lines
-        ENV.reject{|k, v| k == "_" }.map{|kv| kv.map(&:shellescape).join("=") }
+        ENV.reject{|k, v| k == "_" }.map{|kv| "export " + kv.map(&:shellescape).join("=") }
       end
 
       def write_script(script)
