@@ -37,8 +37,9 @@ module ITermCLI
 
     desc "new-session COMMAND", "Create new session in current terminal"
     option :name, aliases: :n
+    option :debug, type: :boolean
     def new_session(*command)
-      Terminal::NewSession.call(command, name: options.name)
+      Terminal::NewSession.call(command, name: options.name, debug: options.debug)
     end
 
     desc "send-keys KEYS", "Send keys to session"
