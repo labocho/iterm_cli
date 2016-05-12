@@ -15,14 +15,14 @@ module ITermCLI
         }
       JS
 
-      # command should be ["command", "arg"] or ["command arg"] or nil
-      def call(command, options = {})
+      # command should be ["command", "arg"] or ["command arg"]
+      def call(command_and_args, options = {})
         options = {name: nil, debug: false}.merge(options)
         name = options[:name]
         debug = options[:debug]
 
-        commands = split_command_and_args(command)
-        executable = commands.first
+        command = join_command(command_and_args)
+        executable = command.shellsplit.first
 
         unless which(executable)
           $stderr.puts "No such file or directory: #{executable}"
@@ -34,7 +34,7 @@ module ITermCLI
         script_lines = []
         script_lines.concat(set_env_lines)
         script_lines << "cd #{Dir.pwd.shellescape}"
-        script_lines << commands.shelljoin
+        script_lines << command
 
         if debug
           puts script_lines
@@ -49,14 +49,14 @@ module ITermCLI
         system("which", executable, out: "/dev/null", err: "/dev/null")
       end
 
-      def split_command_and_args(commands)
-        case commands.size
+      def join_command(command_and_args)
+        case command_and_args.size
         when 0
-          [ENV["SHELL"]]
+          ENV["SHELL"]
         when 1
-          commands[0].shellsplit
+          command_and_args[0]
         else
-          commands
+          command_and_args.shelljoin
         end
       end
 
