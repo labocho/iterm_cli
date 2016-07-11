@@ -4,13 +4,13 @@ module ITermCLI
       SOURCE = <<-JS
         function run(argv) {
           var iTerm = Application("iTerm");
-          var terminal = iTerm.currentTerminal();
+          var window = iTerm.currentWindow();
           var names = [];
-          var i, session;
+          var i, tab;
 
-          for (i = 0; i < terminal.sessions.length; i++) {
-            session = terminal.sessions[i];
-            names.push(session.name());
+          for (i = 0; i < window.tabs.length; i++) {
+            tab = window.tabs[i];
+            names.push(tab.currentSession().name());
           }
 
           return names.join("\\n");

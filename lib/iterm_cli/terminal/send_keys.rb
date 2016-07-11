@@ -5,11 +5,11 @@ module ITermCLI
         function run(argv) {
           var options = JSON.parse(argv[0]);
           var iTerm = Application("iTerm");
-          var terminal = iTerm.currentTerminal();
+          var window = iTerm.currentWindow();
           var i, session;
 
-          for (i = 0; i < terminal.sessions.length; i++) {
-            session = terminal.sessions[i];
+          for (i = 0; i < window.tabs.length; i++) {
+            session = window.tabs[i].currentSession();
             if (session.name() === options.target) {
               session.write({text: options.text});
             }

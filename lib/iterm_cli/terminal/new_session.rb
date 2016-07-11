@@ -6,12 +6,10 @@ module ITermCLI
         function run(argv) {
           var options = JSON.parse(argv[0]);
           var iTerm = Application("iTerm");
-          var terminal = iTerm.currentTerminal();
-          var session = new iTerm.Session();
+          var window = iTerm.currentWindow();
+          var tab = iTerm.createTab(window, {withProfile: "Default", command: options.command});
 
-          terminal.sessions.push(session);
-          session.exec({command: options.command});
-          session.name = options.name;
+          tab.currentSession().name = options.name;
         }
       JS
 
