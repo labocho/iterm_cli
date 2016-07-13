@@ -5,6 +5,7 @@ Command line interface for [iTerm 2](https://www.iterm2.com/). Inspired by [tmux
 ## Requirements
 
 Ruby 1.9.3 or later.
+iTerm2 Build 3.0.4 or later.
 
 ## Installation
 
