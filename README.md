@@ -52,8 +52,7 @@ Ruby 1.9.3 or later.
       command: rails console
       # `kill` passes `iterm send-keys` when stopped
       kill: exit
-    # shorthand style
-    # kill: C-c
+    # shorthand style (killed by control-c)
     server: rails server
 
 `iterm sessions` have subcommands below.
@@ -88,8 +87,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/iterm_cli. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/labocho/iterm_cli.
 
 ## License
 
