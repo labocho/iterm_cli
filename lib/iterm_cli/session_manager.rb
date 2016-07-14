@@ -33,10 +33,12 @@ module ITermCLI
       existed = existed_session_names
       sessions_will_start.reject!{|s| existed.include?(s.name) }
 
-      sessions_will_start.each do |session|
-        $stdout.puts "Start #{session.name}"
-        Terminal::NewSession.call([session.command], name: session.name)
-      end
+      sessions_will_start.map{|session|
+        Thread.new {
+          $stdout.puts "Start #{session.name}"
+          Terminal::NewSession.call([session.command], name: session.name)
+        }
+      }.each(&:join)
     end
 
     def kill(names)
@@ -44,10 +46,12 @@ module ITermCLI
       existed = existed_session_names
       sessions_will_kill.select!{|s| existed.include?(s.name) }
 
-      sessions_will_kill.each do |session|
-        $stdout.puts "Kill #{session.name}"
-        Terminal::SendKeys.call(session.kill.split(" "), target: session.name)
-      end
+      sessions_will_kill.map{|session|
+        Thread.new {
+          $stdout.puts "Kill #{session.name}"
+          Terminal::SendKeys.call(session.kill.split(" "), target: session.name)
+        }
+      }.each(&:join)
     end
 
     def list
