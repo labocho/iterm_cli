@@ -35,7 +35,7 @@ module ITermCLI
 
       sessions_will_start.map{|session|
         Thread.new {
-          $stdout.puts "Start #{session.name}"
+          Thread.exclusive { $stdout.puts "Start #{session.name}" }
           Terminal::NewSession.call([session.command], name: session.name)
         }
       }.each(&:join)
@@ -48,7 +48,7 @@ module ITermCLI
 
       sessions_will_kill.map{|session|
         Thread.new {
-          $stdout.puts "Kill #{session.name}"
+          Thread.exclusive { $stdout.puts "Kill #{session.name}" }
           Terminal::SendKeys.call(session.kill.split(" "), target: session.name)
         }
       }.each(&:join)
