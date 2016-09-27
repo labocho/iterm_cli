@@ -33,9 +33,10 @@ module ITermCLI
       existed = existed_session_names
       sessions_will_start.reject!{|s| existed.include?(s.name) }
 
+      mutex = Mutex.new
       sessions_will_start.map{|session|
         Thread.new {
-          Thread.exclusive { $stdout.puts "Start #{session.name}" }
+          mutex.synchronize { $stdout.puts "Start #{session.name}" }
           Terminal::NewSession.call([session.command], name: session.name)
         }
       }.each(&:join)
@@ -46,9 +47,10 @@ module ITermCLI
       existed = existed_session_names
       sessions_will_kill.select!{|s| existed.include?(s.name) }
 
+      mutex = Mutex.new
       sessions_will_kill.map{|session|
         Thread.new {
-          Thread.exclusive { $stdout.puts "Kill #{session.name}" }
+          mutex.synchronize { $stdout.puts "Kill #{session.name}" }
           Terminal::SendKeys.call(session.kill.split(" "), target: session.name)
         }
       }.each(&:join)
