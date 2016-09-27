@@ -3,7 +3,7 @@ module ITermCLI
     class ListSessions < Function
       SOURCE = <<-JS
         function run(argv) {
-          var iTerm = Application("iTerm");
+          var iTerm = Application("iTerm2");
           var window = iTerm.currentWindow();
           var names = [];
           var i, tab;

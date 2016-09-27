@@ -4,7 +4,7 @@ module ITermCLI
       SOURCE = <<-JS
         function run(argv) {
           var options = JSON.parse(argv[0]);
-          var iTerm = Application("iTerm");
+          var iTerm = Application("iTerm2");
           var window = iTerm.currentWindow();
           var i, session;
 
