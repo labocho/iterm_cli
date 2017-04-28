@@ -9,6 +9,10 @@ iTerm2 Build 3.0.4 or later.
 
 ## Installation
 
+    $ gem install iterm_cli
+
+Or
+
     $ git clone https://github.com/labocho/iterm_cli
     $ cd iterm_cli
     $ rake install
