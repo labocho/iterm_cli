@@ -50,7 +50,7 @@ module ITermCLI
       def join_command(command_and_args)
         case command_and_args.size
         when 0
-          ENV["SHELL"]
+          ENV["SHELL"] + " -l"
         when 1
           command_and_args[0]
         else
