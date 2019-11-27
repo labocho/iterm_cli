@@ -1,7 +1,7 @@
 module ITermCLI
   module Terminal
     class ListSessions < Function
-      SOURCE = <<-JS
+      SOURCE = <<-JS.freeze
         function run(argv) {
           var iTerm = Application("iTerm2");
           var window = iTerm.currentWindow();

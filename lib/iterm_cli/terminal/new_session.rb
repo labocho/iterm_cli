@@ -2,7 +2,7 @@ require "shellwords"
 module ITermCLI
   module Terminal
     class NewSession < Function
-      SOURCE = <<-JS
+      SOURCE = <<-JS.freeze
         function run(argv) {
           var options = JSON.parse(argv[0]);
           var iTerm = Application("iTerm2");
@@ -23,7 +23,7 @@ module ITermCLI
         executable = command.shellsplit.first
 
         unless which(executable)
-          $stderr.puts "No such file or directory: #{executable}"
+          warn "No such file or directory: #{executable}"
           exit 1
         end
 
@@ -59,12 +59,12 @@ module ITermCLI
       end
 
       def set_env_lines
-        ENV.reject{|k, v| k == "_" }.map{|kv| "export " + kv.map(&:shellescape).join("=") }
+        ENV.reject {|k, _v| k == "_" }.map {|kv| "export " + kv.map(&:shellescape).join("=") }
       end
 
       def write_script(script)
         filename = Dir.mktmpdir("iterm-new-session") + "/iterm-new-session.sh"
-        open(filename, "w"){|f| f.write(script) }
+        File.write(filename, script)
         filename
       end
     end

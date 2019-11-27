@@ -14,8 +14,8 @@ module ITermCLI
     end
 
     def self.load(sessions_file)
-      unless File.exists?(sessions_file)
-        $stderr.puts "#{sessions_file} not found"
+      unless File.exist?(sessions_file)
+        warn "#{sessions_file} not found"
         exit 1
       end
       sessions = YAML.load_file(sessions_file)
@@ -31,10 +31,10 @@ module ITermCLI
     def start(names)
       sessions_will_start = select_sessions_by_names(names)
       existed = existed_session_names
-      sessions_will_start.reject!{|s| existed.include?(s.name) }
+      sessions_will_start.reject! {|s| existed.include?(s.name) }
 
       mutex = Mutex.new
-      sessions_will_start.map{|session|
+      sessions_will_start.map {|session|
         Thread.new {
           mutex.synchronize { $stdout.puts "Start #{session.name}" }
           Terminal::NewSession.call([session.command], name: session.name)
@@ -45,10 +45,10 @@ module ITermCLI
     def kill(names)
       sessions_will_kill = select_sessions_by_names(names)
       existed = existed_session_names
-      sessions_will_kill.select!{|s| existed.include?(s.name) }
+      sessions_will_kill.select! {|s| existed.include?(s.name) }
 
       mutex = Mutex.new
-      sessions_will_kill.map{|session|
+      sessions_will_kill.map {|session|
         Thread.new {
           mutex.synchronize { $stdout.puts "Kill #{session.name}" }
           Terminal::SendKeys.call(session.kill.split(" "), target: session.name)
@@ -58,7 +58,7 @@ module ITermCLI
 
     def list
       existed = existed_session_names
-      column_width = sessions.values.map{|s| s.name.length }.max
+      column_width = sessions.values.map {|s| s.name.length }.max
       sessions.values.each do |session|
         prefix = if existed.include?(session.name)
           "*"
@@ -78,7 +78,7 @@ module ITermCLI
         names.each do |name|
           s = sessions[name]
           unless s
-            $stderr.puts "#{name} not defined"
+            warn "#{name} not defined"
             exit 1
           end
           r << s
@@ -88,8 +88,7 @@ module ITermCLI
     end
 
     def parse_sessions(sessions)
-      sessions.inject({}) do |h, (k, v)|
-        s = {name: k}
+      sessions.each_with_object({}) do |(k, v), h|
         session = case v
         when String
           Session.new(name: k, command: v, kill: "C-c")
@@ -97,7 +96,6 @@ module ITermCLI
           Session.new(v.merge(name: k))
         end
         h[k] = session
-        h
       end
     end
 

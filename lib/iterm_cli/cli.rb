@@ -16,7 +16,7 @@ module ITermCLI
     end
 
     desc "ls", "List sessions"
-    def ls(*session_names)
+    def ls
       SessionManager.load(".iterm-sessions").list
     end
 

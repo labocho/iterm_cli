@@ -1,7 +1,7 @@
 module ITermCLI
   module Terminal
     class SendKeys < Function
-      SOURCE = <<-JS
+      SOURCE = <<-JS.freeze
         function run(argv) {
           var options = JSON.parse(argv[0]);
           var iTerm = Application("iTerm2");
@@ -23,7 +23,7 @@ module ITermCLI
         options = {target: nil}.merge(options)
         target = options[:target]
 
-        text = keys.map{|t|
+        text = keys.map {|t|
           case t
           when /\AC-(.)$\z/
             ($1.ord & 0b00011111).chr

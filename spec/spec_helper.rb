@@ -1,2 +1,2 @@
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'iterm_cli'
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+require "iterm_cli"

@@ -8,15 +8,15 @@ module ITermCLI
         new.call(*args)
       end
 
-      def call(*args)
+      def call(*_args)
         raise NotImplementedError
       end
 
       def osascript(source, arg = {})
         out, err, status = Open3.capture3("/usr/bin/osascript", "-l", "JavaScript", "-e", source, arg.to_json)
         unless status.success?
-          $stderr.puts "osascript exited with #{status.to_i}"
-          $stderr.puts err
+          warn "osascript exited with #{status.to_i}"
+          warn err
           exit status.to_i
         end
         out
