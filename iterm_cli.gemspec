@@ -18,6 +18,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r(^exe/)) {|f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.required_ruby_version = ">= 3.4.4"
+
   spec.add_dependency "thor", "~> 1.5.0"
   spec.add_dependency "thor-zsh_completion", "~> 0.1.1"
 

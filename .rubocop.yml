@@ -108,6 +108,9 @@ Style/PerlBackrefs:
 Style/SpecialGlobalVars:
   Enabled: false
 
+Style/StringConcatenation:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

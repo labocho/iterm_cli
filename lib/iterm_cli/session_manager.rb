@@ -59,7 +59,7 @@ module ITermCLI
     def list
       existed = existed_session_names
       column_width = sessions.values.map {|s| s.name.length }.max
-      sessions.values.each do |session|
+      sessions.each_value do |session|
         prefix = if existed.include?(session.name)
           "*"
         else
