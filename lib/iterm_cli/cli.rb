@@ -7,17 +7,17 @@ module ITermCLI
 
     desc "start [SESSION_NAME]", "Start all sessions if it's not started"
     def start(*session_names)
-      SessionManager.load(".iterm-sessions").start(session_names)
+      SessionManager.load(find_iterm_sessions_file!).start(session_names)
     end
 
     desc "kill [SESSION_NAME]", "Kill all sessions if it's started"
     def kill(*session_names)
-      SessionManager.load(".iterm-sessions").kill(session_names)
+      SessionManager.load(find_iterm_sessions_file!).kill(session_names)
     end
 
     desc "ls", "List sessions"
     def ls
-      SessionManager.load(".iterm-sessions").list
+      SessionManager.load(find_iterm_sessions_file!).list
     end
 
     map(
@@ -25,6 +25,16 @@ module ITermCLI
       "k" => "kill",
       "l" => "ls",
     )
+
+    private
+    def find_iterm_sessions_file!
+      %w(.iterm-sessions Procfile).each do |path|
+        return path if File.exist?(path)
+      end
+
+      warn ".iterm-sessions or Procfile required"
+      exit 1
+    end
   end
 
   class CLI < Thor
@@ -48,7 +58,7 @@ module ITermCLI
       Terminal::SendKeys.call(keys, target: options.target)
     end
 
-    desc "sessions SUBCOMMAND ...ARGS", "Manage sessions by .iterm-sessions"
+    desc "sessions SUBCOMMAND ...ARGS", "Manage sessions by .iterm-sessions (or Procfile)"
     subcommand "sessions", SessionsCommand
 
     map(
