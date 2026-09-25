@@ -48,8 +48,8 @@ Or
 
 ### sessions
 
-`iterm sessions` manages multi sessions by file named `.iterm-sessions` in current directory.
-`.iterm-sessions` should be written in YAML (http://yaml.org/).
+`iterm sessions` manages multiple sessions using a `.iterm-sessions` or `Procfile` configuration file in the current directory.
+The configuration file should be written in YAML (http://yaml.org/).
 
     # keys are session names
     console:
@@ -97,4 +97,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/laboch
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
