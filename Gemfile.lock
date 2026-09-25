@@ -20,7 +20,7 @@ GEM
     prism (1.9.0)
     racc (1.8.1)
     rainbow (3.1.1)
-    rake (10.5.0)
+    rake (12.3.3)
     regexp_parser (2.13.0)
     rspec (3.13.2)
       rspec-core (~> 3.13.0)
@@ -64,7 +64,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 4.0)
   iterm_cli!
-  rake (~> 10.0)
+  rake (~> 12.3)
   rspec
   rubocop
 
@@ -81,7 +81,7 @@ CHECKSUMS
   prism (1.9.0) sha256=7b530c6a9f92c24300014919c9dcbc055bf4cdf51ec30aed099b06cd6674ef85
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
-  rake (10.5.0) sha256=2b55a1ad44b5c945719d8a97c302a316af770b835187d12143e83069df5a8a49
+  rake (12.3.3) sha256=f7694adb4fe638da35452300cee6c545e9c377a0e3190018ac04d590b3c26ab3
   regexp_parser (2.13.0) sha256=d105d95d2138954e73914d2fbfb3d0a8f8605a49a3e89864c32e78b9107cb770
   rspec (3.13.2) sha256=206284a08ad798e61f86d7ca3e376718d52c0bc944626b2349266f239f820587
   rspec-core (3.13.6) sha256=a8823c6411667b60a8bca135364351dda34cd55e44ff94c4be4633b37d828b2d
