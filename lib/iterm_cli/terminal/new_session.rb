@@ -1,4 +1,5 @@
 require "shellwords"
+require "tmpdir"
 module ITermCLI
   module Terminal
     class NewSession < Function
